@@ -8,3 +8,6 @@ const content = (
   </div>
 );
 ReactDom.render(content, document.querySelector("#root"));
+
+// To connect serve we most install axios with below command and use it to server connection <--comment
+// npm i axios

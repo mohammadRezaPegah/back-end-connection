@@ -9,7 +9,7 @@ class User extends Component {
               className="card-img-top rounded-circle m-auto"
               src={this.props.avatar}
               alt="Avatar"
-              style={{ width: "150px" }}
+              style={{ with: "150px", height: "150px" }}
             />
             <div className="card-body">
               <h5 className="card-title">
