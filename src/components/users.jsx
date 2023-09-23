@@ -71,13 +71,20 @@ class Users extends Component {
     return (
       <>
         <div className="row">
-          <div className="col-12 py-2">
-            <button className="btn btn-success" onClick={this.create}>
-              New User
-            </button>
+          <div className="col-12 text-cetner">
+            <h1 className="text-center h3">Users</h1>
+          </div>
+          <div className="col-12 text-cetner">
+            <div className="row">
+              <div className="col-12 py-2">
+                <button className="btn btn-success" onClick={this.create}>
+                  New User
+                </button>
+              </div>
+            </div>
+            <div className="row">{this.usersGenerator()}</div>
           </div>
         </div>
-        <div className="row">{this.usersGenerator()}</div>
       </>
     );
   }
