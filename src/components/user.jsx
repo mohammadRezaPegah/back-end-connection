@@ -3,10 +3,10 @@ class User extends Component {
   render() {
     return (
       <>
-        <div className="col text-center p-2">
+        <div className="col-lg-2 col-md-3 col-sm-6 col-6 text-center p-2">
           <div className="card">
             <img
-              className="card-img-top rounded-circle m-auto"
+              className="card-img-top m-auto"
               src={this.props.avatar}
               alt="Avatar"
               style={{ with: "150px", height: "150px" }}
@@ -44,8 +44,12 @@ class User extends Component {
       </>
     );
   }
-  update = (user) => {};
-  delete = (user) => {};
+  update = (user) => {
+    this.props.onUpdate(user);
+  };
+  delete = (user) => {
+    this.props.onDelete(user);
+  };
 }
 
 export default User;

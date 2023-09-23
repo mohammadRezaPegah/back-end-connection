@@ -24,13 +24,48 @@ class Users extends Component {
             avatar={user.avatar}
             first_name={user.first_name}
             last_name={user.last_name}
+            onUpdate={this.handelUpdate}
+            onDelete={this.handelDelete}
           />
         );
       });
     }
     return element;
   }
-  create = () => {};
+  create = async () => {
+    const newUser = {
+      first_name: "milad",
+      last_name: "Pegah",
+      email: "miladpersonal1999@gmail.com",
+      avatar: "https://avatars.githubusercontent.com/u/45096088?v=4",
+      job: "Programmer",
+    };
+    const response = await axios.post("https://reqres.in/api/users", newUser);
+    // Add new user to state <--comment
+    this.setState({ users: [...this.state.users, newUser] });
+  };
+
+  handelUpdate = async (user) => {
+    let data = this.state.users.filter((u) => u.id == user)[0];
+    data.first_name = "updated";
+    const respons = await axios.put(
+      "https://reqres.in/api/users/${data.id}",
+      data
+    );
+    const updaedUsers = [...this.state.users];
+    const index = updaedUsers.indexOf(data);
+    updaedUsers[index] = { ...data };
+    this.setState({ users: updaedUsers });
+  };
+  handelDelete = async (user) => {
+    let data = this.state.users.filter((u) => u.id == user)[0];
+    const respons = await axios.delete(
+      "https://reqres.in/api/users/${data.id}"
+    );
+    const newUsers = this.state.users.filter((u) => u.id !== user);
+    this.setState({ users: newUsers });
+    console.log(respons);
+  };
 
   render() {
     return (
