@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import Users from "./components/users";
 import Navbar from "./components/navigation";
-import { Route } from "react-router-dom";
-import { Routes } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "./components/home";
 import Login from "./components/login";
 import Register from "./components/register";
