@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Link, NavLink } from "react-router-dom";
+
 class User extends Component {
   render() {
     return (
@@ -9,12 +11,14 @@ class User extends Component {
               className="card-img-top m-auto"
               src={this.props.avatar}
               alt="Avatar"
-              style={{ with: "150px", height: "150px" }}
+              style={{ width: "150px", height: "150px" }}
             />
             <div className="card-body">
-              <h5 className="card-title">
-                {this.props.first_name} {this.props.last_name}
-              </h5>
+              <Link to={`/users/${this.props.id}`}>
+                <h5 className="card-title">
+                  {this.props.first_name} {this.props.last_name}
+                </h5>
+              </Link>
               <p className="card-text">{this.props.email}</p>
               <div className="row">
                 <div className="col-lg-6 col-md-6 col-sm-12">
