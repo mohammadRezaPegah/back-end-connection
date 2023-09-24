@@ -6,6 +6,7 @@ import Home from "./components/home";
 import Login from "./components/login";
 import Register from "./components/register";
 import UserShow from "./components/userShow";
+import NotFound from "./components/notFound";
 
 class App extends Component {
   state = {};
@@ -15,13 +16,14 @@ class App extends Component {
         <Navbar />
         <div className="container">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/users/:id" element={<UserShow />} />
             <Route path="/users" element={<Users />} />
-            <Route path="/users/:id" element={<UserShow />} />{" "}
             {/* required paramater */}
-            <Route path="/login/timestamp?" element={<Login />} />{" "}
+            <Route path="/login/timestamp?" element={<Login />} />
             {/* optional paramater */}
+            <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </>
