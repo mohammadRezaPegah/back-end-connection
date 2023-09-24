@@ -1,11 +1,11 @@
 import { useParams, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import queryString from "query-string";
 const UserShow = (props) => {
   const [user, setUser] = useState({});
   const params = useParams();
-  console.log(props);
+  const users_name = useRef(null);
   // To use query location in url you most use query string package to parse information, That installed by below command <--comment
   // npm i query-string <--comment
   const query_param = queryString.parse(useLocation().search);
@@ -20,6 +20,7 @@ const UserShow = (props) => {
     getInformation();
     return () => {};
   }, []);
+  console.log("users name: ", users_name.current.outerText);
   return (
     <>
       <div className="row">
@@ -35,7 +36,7 @@ const UserShow = (props) => {
               style={{ width: "150px", height: "150px" }}
             />
             <div className="card-body">
-              <h5 className="card-title">
+              <h5 ref={users_name} className="card-title">
                 {user.first_name} {user.last_name}
               </h5>
               <p className="card-text">{user.email}</p>
