@@ -7,9 +7,38 @@ import Login from "./components/login";
 import Register from "./components/register";
 import UserShow from "./components/userShow";
 import NotFound from "./components/notFound";
+import Dashboard from "./components/auth/dashboard";
+import axios from "axios";
 
 class App extends Component {
-  state = {};
+  state = {
+    user: null,
+  };
+  async componentDidMount() {
+    const token = localStorage.getItem("back-en-connection-token");
+    if (!token) {
+      this.setState({ user: null });
+      return;
+    }
+    // Confirm user token <--comment
+    // const response = await axios.post("https://backend-token-validation-url", {
+    //   token,
+    // });
+
+    const response = {
+      data: {
+        user: {
+          name: "milad pegah",
+          email: "miladpersonal1999@gmail.com",
+        },
+      },
+    };
+    if (!response.data.user) {
+      this.setState({ user: null });
+      return;
+    }
+    this.setState({ user: response.data.user });
+  }
   render() {
     return (
       <>
@@ -23,6 +52,7 @@ class App extends Component {
             {/* optional paramater */}
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

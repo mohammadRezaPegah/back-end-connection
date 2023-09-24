@@ -19,9 +19,9 @@ class Login extends Component {
   schema = yup.object().shape({
     email: yup
       .string()
-      .email("فرمت ایمیل اشتباه است")
-      .required("وارد کردن ایمیل الزامی میباشد"),
-    password: yup.string().min(6, "پسورد باید حداقل شش کارکتر باشد"),
+      .email("Please enter a valid email address")
+      .required("Email is required"),
+    password: yup.string().min(6, "Password most bt grater than six charecter"),
   });
   email = createRef();
   password = createRef();
@@ -61,8 +61,10 @@ class Login extends Component {
           "https:/reqres.in/api/login",
           account
         );
+        localStorage.setItem("back-en-connection-token", response.data.token);
+        window.location.replace("/dashboard");
       } catch (error) {
-        this.setState({ errors: ["ایمیل یا پسورد اشتباه است"] });
+        this.setState({ errors: ["Email or password are wrong."] });
       }
       this.setState({ sending: false });
     }
