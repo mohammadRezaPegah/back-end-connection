@@ -1,7 +1,14 @@
 import React, { Component } from "react";
-
+import axios from "axios";
+axios.defaults.headers.common["token"] = localStorage.getItem(
+  "back-end-connection-token"
+);
 class Dashboard extends Component {
   state = {};
+  async componentDidMount() {
+    console.log("dashboard");
+    const response = await axios.get("https://reqres.in/api/unknown");
+  }
   render() {
     return (
       <>
