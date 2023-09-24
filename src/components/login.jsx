@@ -61,8 +61,8 @@ class Login extends Component {
           "https:/reqres.in/api/login",
           account
         );
-        localStorage.setItem("back-en-connection-token", response.data.token);
-        window.location.replace("/dashboard");
+        localStorage.setItem("back-end-connection-token", response.data.token);
+        window.location = "/dashboard";
       } catch (error) {
         this.setState({ errors: ["Email or password are wrong."] });
       }

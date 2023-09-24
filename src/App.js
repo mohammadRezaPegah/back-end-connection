@@ -9,13 +9,14 @@ import UserShow from "./components/userShow";
 import NotFound from "./components/notFound";
 import Dashboard from "./components/auth/dashboard";
 import axios from "axios";
+import Logout from "./components/auth/logout";
 
 class App extends Component {
   state = {
     user: null,
   };
   async componentDidMount() {
-    const token = localStorage.getItem("back-en-connection-token");
+    const token = localStorage.getItem("back-end-connection-token");
     if (!token) {
       this.setState({ user: null });
       return;
@@ -42,7 +43,7 @@ class App extends Component {
   render() {
     return (
       <>
-        <Navbar />
+        <Navbar user={this.state.user} />
         <div className="container">
           <Routes>
             <Route path="/users/:id" element={<UserShow />} />
@@ -53,6 +54,7 @@ class App extends Component {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/logout" element={<Logout />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
