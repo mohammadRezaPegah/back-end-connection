@@ -15,12 +15,12 @@ const UserShow = (props) => {
       `https://reqres.in/api/users/${params.id}`
     );
     setUser(response.data.data);
+    console.log("users name: ", users_name.current.outerText);
   }
   useEffect(() => {
     getInformation();
     return () => {};
   }, []);
-  console.log("users name: ", users_name.current.outerText);
   return (
     <>
       <div className="row">

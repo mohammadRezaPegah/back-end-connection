@@ -2,19 +2,36 @@ import axios from "axios";
 import React, { Component, createRef } from "react";
 
 class Login extends Component {
-  state = {};
+  state = {
+    account: {
+      email: "",
+      password: "",
+    },
+  };
   email = createRef();
   password = createRef();
   handleSubmit = async (e) => {
     e.preventDefault();
-    const account = {
-      email: this.email.current.value,
-      password: this.password.current.value,
-    };
+    // Form control with ref <--comment
+    // const account = {
+    //   email: this.email.current.value,
+    //   password: this.password.current.value,
+    // };
+    // if (account.email && account.password) {
+    //   const response = await axios.post("https:/reqres.in/api/login", account);
+    //   console.log(response);
+    // }
+    const account = this.state.account;
     if (account.email && account.password) {
       const response = await axios.post("https:/reqres.in/api/login", account);
       console.log(response);
     }
+  };
+  handleChange = (e) => {
+    const input = e.currentTarget;
+    const account = { ...this.state.account };
+    account[input.name] = input.value;
+    this.setState({ account });
   };
   render() {
     return (
@@ -36,6 +53,9 @@ class Login extends Component {
                   id="email"
                   aria-describedby="emailHelp"
                   placeholder="Enter email"
+                  value={this.state.account.email}
+                  onChange={this.handleChange}
+                  name="email"
                 />
               </div>
               <div className="form-group mb-2">
@@ -46,6 +66,9 @@ class Login extends Component {
                   className="form-control"
                   id="password"
                   placeholder="Password"
+                  value={this.state.account.password}
+                  onChange={this.handleChange}
+                  name="password"
                 />
               </div>
               <button type="submit" className="btn btn-primary">
