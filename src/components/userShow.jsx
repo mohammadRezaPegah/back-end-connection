@@ -1,9 +1,14 @@
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import queryString from "query-string";
 const UserShow = () => {
   const [user, setUser] = useState({});
   const params = useParams();
+  // To use query location in url you most use query string package to parse information, That installed by below command <--comment
+  // npm i query-string <--comment
+  const query_param = queryString.parse(useLocation().search);
+  //   console.log(query_param);
   async function getInformation() {
     const response = await axios.get(
       `https://reqres.in/api/users/${params.id}`
@@ -12,7 +17,8 @@ const UserShow = () => {
   }
   useEffect(() => {
     getInformation();
-  });
+    return () => {};
+  }, []);
   return (
     <>
       <div className="row">
