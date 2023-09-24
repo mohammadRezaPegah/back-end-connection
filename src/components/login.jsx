@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { Component, createRef } from "react";
 import Input from "./input";
+import * as yup from "yup";
 
 class Login extends Component {
   state = {
@@ -8,9 +9,32 @@ class Login extends Component {
       email: "",
       password: "",
     },
+    errors: [],
+    sending: false,
   };
+  // To validate form you can use packages and someone is yup taht installed by below command. <--comment
+  // npm i yup <--comment
+  // To use yup, first of all you most create a schema of condations <--comment
+  // How to crate validation? follow below code <--comment
+  schema = yup.object().shape({
+    email: yup
+      .string()
+      .email("فرمت ایمیل اشتباه است")
+      .required("وارد کردن ایمیل الزامی میباشد"),
+    password: yup.string().min(6, "پسورد باید حداقل شش کارکتر باشد"),
+  });
   email = createRef();
   password = createRef();
+  validate = async () => {
+    try {
+      const result = await this.schema.validate(this.state.account, {
+        abortEarly: false,
+      });
+      return result;
+    } catch (error) {
+      this.setState({ errors: error.errors });
+    }
+  };
   handleSubmit = async (e) => {
     e.preventDefault();
     // Form control with ref <--comment
@@ -22,10 +46,25 @@ class Login extends Component {
     //   const response = await axios.post("https:/reqres.in/api/login", account);
     //   console.log(response);
     // }
+
     const account = this.state.account;
-    if (account.email && account.password) {
-      const response = await axios.post("https:/reqres.in/api/login", account);
-      console.log(response);
+
+    const result = await this.validate();
+    if (result) {
+      // const response = await axios.post("https:/reqres.in/api/login", account);
+      // console.log(response);
+
+      // How to handel server error <--comment
+      try {
+        this.setState({ sending: true });
+        const response = await axios.post(
+          "https:/reqres.in/api/login",
+          account
+        );
+      } catch (error) {
+        this.setState({ errors: ["ایمیل یا پسورد اشتباه است"] });
+      }
+      this.setState({ sending: false });
     }
   };
   handleChange = (e) => {
@@ -37,6 +76,12 @@ class Login extends Component {
   render() {
     return (
       <>
+        {this.state.errors.lenght !== 0 &&
+          this.state.errors.map((error) => (
+            <div className="alert alert-danger p-2">
+              <p className="m-0">{error}</p>
+            </div>
+          ))}
         <div className="row">
           <div className="col-12 text-center">
             <h1 className="text-cneter h3">Login</h1>
@@ -89,7 +134,11 @@ class Login extends Component {
                   name="password"
                 />
               </div> */}
-              <button type="submit" className="btn btn-primary">
+              <button
+                type="submit"
+                disabled={this.state.sending}
+                className="btn btn-primary"
+              >
                 Submit
               </button>
             </form>
