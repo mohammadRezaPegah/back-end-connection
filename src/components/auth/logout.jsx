@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import AuthProtect from "../authProtect";
 
 class Logout extends Component {
   state = {};
@@ -7,7 +8,7 @@ class Logout extends Component {
     window.location = "/";
   }
   render() {
-    return null;
+    return <AuthProtect />;
   }
 }
 

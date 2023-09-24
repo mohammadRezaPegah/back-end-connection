@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { Component, createRef } from "react";
 import Input from "./input";
 import * as yup from "yup";
+import GuestProtect from "./guestProtect";
 
 class Login extends Component {
   state = {
@@ -78,6 +79,7 @@ class Login extends Component {
   render() {
     return (
       <>
+        <GuestProtect />
         {this.state.errors.lenght !== 0 &&
           this.state.errors.map((error) => (
             <div className="alert alert-danger p-2">
