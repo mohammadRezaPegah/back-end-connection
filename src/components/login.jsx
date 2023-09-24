@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { Component, createRef } from "react";
+import Input from "./input";
 
 class Login extends Component {
   state = {
@@ -44,7 +45,24 @@ class Login extends Component {
         <div className="row justify-content-center">
           <div className="col-lg-4 col-md-6 col-sm-12 col-12">
             <form onSubmit={this.handleSubmit}>
-              <div className="form-group mb-2">
+              <Input
+                name="email"
+                value={this.state.account.email}
+                label="Email Address"
+                onChange={this.handleChange}
+                placeholder="enter email"
+                type="email"
+              />
+              <Input
+                name="password"
+                value={this.state.account.password}
+                label="Password"
+                onChange={this.handleChange}
+                placeholder="Password"
+                type="password"
+              />
+
+              {/* <div className="form-group mb-2">
                 <label htmlFor="email">Email address</label>
                 <input
                   ref={this.email}
@@ -70,7 +88,7 @@ class Login extends Component {
                   onChange={this.handleChange}
                   name="password"
                 />
-              </div>
+              </div> */}
               <button type="submit" className="btn btn-primary">
                 Submit
               </button>
